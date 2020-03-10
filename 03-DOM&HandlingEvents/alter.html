@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%">
 	<head>
 		<title>Pink Floyd</title>
 		<meta charset="UTF-8">
 	</head>
-	<body>
-		<h1>Another Brick in the Wall</h1>
-		<h3>Pink Floyd</h3>
-		<p>We don't need no education<br>
+	<body onclick=color(this) style="height: 100%">
+		<h1 onclick="showPart2(this)">Another Brick in the Wall</h1>
+		<h3 onclick="showDesc()">Pink Floyd</h3>
+		<p onclick="changeFont(this)" oncopy="nieDlaPsaTo()">We don't need no education<br>
 		We don't need no thought control<br>
 		No dark sarcasm in the classroom<br>
 		Teachers leave them kids alone<br>
@@ -15,13 +15,33 @@
 		All in all it's just another brick in the wall<br>
 		All in all you're just another brick in the wall</p>
 		
-		<p style="visibility: hidden;">Pink Floyd were an English rock band formed in London.<br>
+		<p id="2" style="visibility: hidden;" onclick="addPic()">Pink Floyd were an English rock band formed in London.<br>
 		They achieved international acclaim with their progressive<br>
 		and psychedelic music.</p>
+
+		<div id="3"></div>
 		
 		<script>
-			// a JavaScript code here ...
-			
+			function showPart2(element) {
+				element.innerHTML = "Another Brick in the Wall (Part 2)";
+			}
+			function showDesc(){
+				document.getElementById("2").style = "visibility: visible";
+			}
+			function changeFont(element) {
+				element.style.fontStyle = "italic";
+			}
+			function nieDlaPsaTo() {
+				alert("Nie dla psa kielbasa!");
+			}
+			function color(element) {
+				element.style.backgroundColor = "yellow";
+			}
+			function addPic() {
+				elem = document.createElement("img");
+				elem.src = "https://upload.wikimedia.org/wikipedia/en/d/d6/Pink_Floyd_-_all_members.jpg";
+				document.getElementById("3").appendChild(elem);
+			}
 		</script>
 	</body>
 </html>
