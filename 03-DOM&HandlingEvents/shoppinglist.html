@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>Shopping List</title>
-    <meta charset="UTF-8">
-</head>
+    <meta charset="UTF-8" />
+  </head>
 
-<body>
+  <body>
     <h1>Shopping List</h1>
     <p>
-        New item: <input type="text" name="item">
-        <button type="button">Add</button>
+      New item: <input type="text" name="item" onkeydown="(event.keyCode==13) ? addItem() : false"/>
+      <button type="button" onclick="addItem()">Add</button>
     </p>
     <h3>List of items</h3>
-    <ol>
-        <li>cooking oil</li>
-        <li>breakfast cereal</li>
-        <li>bread</li>
+    <ol id="ol">
+      <li>cooking oil</li>
+      <li>breakfast cereal</li>
+      <li>bread</li>
     </ol>
 
     <script>
-    	// a JavaScript code here ...
-
+      addItem = () => {
+        const list = document.getElementById("ol");
+        var input = document.getElementsByName("item").item(0);
+        var item = document.createElement("li");
+        if (input.value != "") {
+          item.appendChild(document.createTextNode(input.value));
+          list.appendChild(item);
+          input.value = "";
+        }
+      };
     </script>
-</body>
-
+  </body>
 </html>
