@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chart</title>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  </head>
+  <body>
+    <canvas id="myChart"></canvas>
+    <script>
+      var dates = new Array();
+      var prices = new Array();
+      var method = "GET";
+      var url = "http://api.nbp.pl/api/cenyzlota/last/10/?format=json";
+      var request = new XMLHttpRequest();
+      request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var data = JSON.parse(this.responseText);
+          for (i = 0; i < data.length; i++) {
+            prices.push(data[i].cena.toString());
+            dates.push(data[i].data.toString());
+          }
+        }
+      };
+      request.open(method, url, false);
+      request.send();
+      console.log(prices);
+      console.log(dates);
+
+      var ctx = document.getElementById("myChart").getContext("2d");
+      var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: "bar",
+
+        // The data for our dataset
+        data: {
+          labels: dates,
+          datasets: [
+            {
+              label: "Last 10 gold price quotations",
+              backgroundColor: "rgb(255, 99, 132)",
+              borderColor: "rgb(255, 99, 132)",
+              data: prices
+            }
+          ]
+        },
+
+        // Configuration options go here
+        options: {}
+      });
+    </script>
+  </body>
+</html>
