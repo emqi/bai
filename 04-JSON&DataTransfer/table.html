@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data table</title>
+    <meta charset="UTF-8" />
+    <script
+      type="text/javascript"
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css"
+    />
+  </head>
+  <body>
+    <table id="myTable" class="display">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Age</th>
+          <th>Country</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody >
+        <tr>
+          <td>Row 1 Data 1</td>
+          <td>Row 1 Data 2</td>
+          <td>Row 1 Data 3</td>
+          <td>Row 1 Data 4</td>
+          <td>Row 1 Data 5</td>
+        </tr>
+        <tr>
+          <td>Row 2 Data 1</td>
+          <td>Row 2 Data 2</td>
+          <td>Row 2 Data 3</td>
+          <td>Row 2 Data 4</td>
+          <td>Row 2 Data 5</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      $(document).ready(function() {
+        $("#myTable").DataTable();
+      });
+
+      // CORS must be disabled
+        const tbody = document.getElementsByTagName("tbody");
+        var request = new XMLHttpRequest();
+        request.overrideMimeType("application/json");
+        request.onreadystatechange = () => {
+          if (request.readyState === 4 && request.status == "0") {
+            data = JSON.parse(request.responseText);
+            for (i = 0; i < data.length; i++) {
+                var person = document.createElement("tr");
+                var name = document.createElement("td");
+                var surname = document.createElement("td");
+                var age = document.createElement("td");
+                var country = document.createElement("td");
+                var email = document.createElement("td");
+                name.appendChild(document.createTextNode(data[i].name));
+                surname.appendChild(document.createTextNode(data[i].surname));
+                age.appendChild(document.createTextNode(data[i].age));
+                country.appendChild(document.createTextNode(data[i].country));
+                email.appendChild(document.createTextNode(data[i].email));
+                tbody.item(0).appendChild(person);
+                person.appendChild(name);
+                person.appendChild(surname);
+                person.appendChild(age);
+                person.appendChild(country);
+                person.appendChild(email);
+            }
+          }
+        };
+        request.open("GET", "people.json", true);
+        request.send();
+
+        request.addEventListener("error", error => {
+          console.warn(
+            "You need to disable CORS in order to load local JSON! For Google Chrome see: https://alfilatov.com/posts/run-chrome-without-cors/."
+          );
+        });
+    </script>
+  </body>
+</html>
