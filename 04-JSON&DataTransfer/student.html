@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Student</title>
-		<meta charset="UTF-8">
-	</head>
-	<body>
-		<h1>Student</h1>
-		<p>Open a console and then click the button</p>
-		<input type="button" value="Display student's data">
-		<p id="personalData"></p>
+  <head>
+    <title>Student</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <h1>Student</h1>
+    <p>Open a console and then click the button</p>
+    <input onclick="readJson()" type="button" value="Display student's data" />
+    <p id="personalData"></p>
 
-		<script>
-
-		</script>
-
-	</body>
+    <script>
+      // CORS must be disabled
+      readJson = () => {
+        var request = new XMLHttpRequest();
+        request.overrideMimeType("application/json");
+        request.open("GET", "me.json", true);
+        request.send();
+        request.onreadystatechange = () => {
+          if (request.readyState === 4 && request.status == "0") {
+            console.log(JSON.parse(request.responseText)[0]);
+          }
+		};
+		
+		request.addEventListener('error', (error) => {
+			console.warn('You need to disable CORS in order to load local JSON! For Google Chrome see: https://alfilatov.com/posts/run-chrome-without-cors/.');
+		})
+      };
+    </script>
+  </body>
 </html>
