@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Personal data</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <h1>Personal Data</h1>
+    <input onclick="readJson()" type="button" value="Display persnal data" />
+    <p id="personalData"></p>
+
+    <script>
+      // CORS must be disabled
+      readJson = () => {
+        var request = new XMLHttpRequest();
+        request.overrideMimeType("application/json");
+        request.onreadystatechange = () => {
+          if (request.readyState === 4 && request.status == "0") {
+            data = JSON.parse(request.responseText);
+            for (i = 0; i < data.length; i++) {
+              document.getElementById("personalData").innerHTML =
+                document.getElementById("personalData").innerHTML +
+                i+1 + ". " + data[i].name + ", " + data[i].surname.toUpperCase() + ", " + data[i].age + ", " + data[i].country + ", " + data[i].email +
+                "<br>";
+            }
+            console.log(data[0]);
+          }
+        };
+        request.open("GET", "people.json", true);
+        request.send();
+
+        request.addEventListener("error", error => {
+          console.warn(
+            "You need to disable CORS in order to load local JSON! For Google Chrome see: https://alfilatov.com/posts/run-chrome-without-cors/."
+          );
+        });
+      };
+    </script>
+  </body>
+</html>
