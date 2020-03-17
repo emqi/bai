@@ -15,13 +15,13 @@
       readJson = () => {
         var request = new XMLHttpRequest();
         request.overrideMimeType("application/json");
-        request.open("GET", "me.json", true);
-        request.send();
         request.onreadystatechange = () => {
-          if (request.readyState === 4 && request.status == "0") {
-            console.log(JSON.parse(request.responseText)[0]);
-          }
+			if (request.readyState === 4 && request.status == "0") {
+				console.log(JSON.parse(request.responseText)[0]);
+			}
 		};
+		request.open("GET", "me.json", true);
+		request.send();
 		
 		request.addEventListener('error', (error) => {
 			console.warn('You need to disable CORS in order to load local JSON! For Google Chrome see: https://alfilatov.com/posts/run-chrome-without-cors/.');
