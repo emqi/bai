@@ -4,7 +4,12 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-  <h1>Address</h1>    
+  <h1>Address</h1> 
+  <div id='app'>
+    <p>{{ name }} {{ surname }}</p>
+    <p>{{ address }}</p>
+    <p>{{ postcode }} {{ city }}</p>
+  </div>   
 
   <script>
     var app = new Vue({

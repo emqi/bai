@@ -4,6 +4,14 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+    <div id="app">
+      <p>DO WYKONANIA</p>
+      <ol>
+        <li v-for="task in sortedData" :key="task.id">
+          {{ task }}
+        </li>
+      </ol>
+    </div>
   <script>
     var app = new Vue({
       el: '#app',
@@ -13,6 +21,11 @@
           'Feed cat',
           'Pay cable bill',
           'Go shopping'
+      ]},
+      computed: {
+        sortedData: function() {
+          return this.todo.sort();
+        }
       }
     });
   </script>

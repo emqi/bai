@@ -1,24 +1,44 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-</head>
-<body>
-  <h1>Grades</h1>    
+  </head>
+  <body>
+    <h1>Grades</h1>
+    <div id="app" style="white-space: pre-wrap;">{{ getReceipt() }}</div>
 
-  <script>
-    var app = new Vue({
-      el: '#app',
-      data: {
-        product: {
-          name: 'book',
-          unitPrice: 17.5,
-          quantity: 3,
-          VAT: 23
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          product: {
+            name: "book",
+            unitPrice: 17,
+            quantity: 3,
+            VAT: 23
+          }
+        },
+        methods: {
+          getReceipt: function() {
+            return (
+              "RECEIPT\n-----------------\nProduct: " +
+              this.product.name +
+              "\nUnit Price: " +
+              this.product.unitPrice +
+              " zł\nQuantity: " +
+              this.product.quantity +
+              "\nAmount: " +
+              this.product.unitPrice * this.product.quantity +
+              " zł\nVAT Tax Rate: " +
+              this.product.VAT +
+              "%\n=================\nTotal: " +
+              this.product.unitPrice *
+              this.product.quantity *
+              (1 + this.product.VAT / 100) + " zł"
+            );
+          }
         }
-      }
-    });
-  </script>
-
-</body>
+      });
+    </script>
+  </body>
 </html>
