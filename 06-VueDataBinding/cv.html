@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <h1>Curriculum Vitae</h1>
+    <div id="app">
+      <p>Name: {{ name }}</p>
+      <input v-model="name" />
+      <p>Surname: {{ surname }}</p>
+      <input v-model="surname" /><br />
+      <p>Age: <span v-if="age">{{ roundAge }}</span></p>
+      <input v-model.number="age" type="number" />
+      <p>Sex: {{ sex}}</p>
+      <label for="male">male</label>
+      <input type="radio" id="male" value="male" v-model="sex" />
+
+      <br />
+      <label for="female">female</label>
+      <input type="radio" id="female" value="female" v-model="sex" />
+
+      <br />
+      <p>Education: {{ education }}</p>
+      <select v-model="education">
+        <option disabled value="">Please select your education level</option>
+        <option>Brak</option>
+        <option>Podstawowe</option>
+        <option>Średnie</option>
+        <option>Wyższe</option>
+      </select>
+      <br />
+      <p>
+        Abilities:
+        <span v-for="item in abilities" :key="item.id"> {{ item }}, </span>
+      </p>
+      <input
+        type="checkbox"
+        id="obsługa komputera"
+        value="obsługa komputera"
+        v-model="abilities"
+      />
+      <label for="obsługa komputera">obsługa komputera</label><br />
+      <input
+        type="checkbox"
+        id="prawo jazdy"
+        value="prawo jazdy"
+        v-model="abilities"
+      />
+      <label for="prawo jazdy">prawo jazdy</label><br />
+      <input
+        type="checkbox"
+        id="kreatywność"
+        value="kreatywność"
+        v-model="abilities"
+      />
+      <label for="kreatywność">kreatywność</label><br />
+      <input
+        type="checkbox"
+        id="praca w zespole"
+        value="praca w zespole"
+        v-model="abilities"
+      />
+      <label for="praca w zespole">praca w zespole</label>
+      <br />
+      <br />
+      <button @click="saveData()">Zapisz</button>
+      <button @click="loadData()">Czytaj</button>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          name: "",
+          surname: "",
+          age: "",
+          sex: "",
+          education: "",
+          abilities: []
+        },
+        computed: {
+          roundAge: function() {
+            return Math.floor(this.age);
+          }
+        },
+        methods: {
+          saveData: function() {
+            const obj = {
+              name: this.name,
+              surname: this.surname,
+              age: this.age,
+              sex: this.sex,
+              education: this.education,
+              abilities: this.abilities
+            };
+
+            localStorage.setItem("cv", JSON.stringify(obj));
+          },
+          loadData: function() {
+            const data = JSON.parse(localStorage.getItem("cv"));
+            this.name = data.name;
+            this.surname = data.surname;
+            this.age = data.age;
+            this.sex = data.sex;
+            this.education = data.education;
+            this.abilities = data.abilities;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

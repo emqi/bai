@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <style>
+    button {
+      width: 200px;
+      height: 50px;
+      font-size: x-large;
+    }
+    div {
+      text-align: center;
+      margin: auto;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <button @click="increase">{{ counter }}</button>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          counter: 0
+        },
+        methods: {
+          increase: function() {
+            return this.counter++;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

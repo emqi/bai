@@ -7,13 +7,13 @@
   <div id="app">
     <h1>TO DO APP</h1>
     <span>To do: </span>
-    <input type="text" v-model="todo">
+    <input type="text" v-model="todo" @keyup.enter="add()">
     <button type="button" @click="add()">Add</button>
     <h3>To Do List</h3>
     <ol>
-      <li>...</li>
-      <li>...</li>
-      <li>...</li>
+      <li v-for="(item, index) in todos" @dblclick="remove(item, index)">
+        {{ item }}
+      </li>
     </ol>
   </div>
   <script>
@@ -26,7 +26,11 @@
       methods: {
         add: function() {
           this.todos.push(this.todo);
-        }
+          this.todo = '';
+        },
+        remove: function(item, index) {
+            this.todos.splice(index, 1);
+          }
       }
     });
   </script>
