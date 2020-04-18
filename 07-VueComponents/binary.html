@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id='app'>
+    <input style="border: 1px solid black; margin: 5px" v-model="decimal"/><br />
+    <converter v-bind:decimal="decimal" v-if="decimal"></converter>
+  </div>
+  <script src="binary.js"></script>
+</body>
+</html>
